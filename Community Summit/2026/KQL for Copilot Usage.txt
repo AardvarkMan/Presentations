@@ -1,0 +1,17 @@
+traces
+| where timestamp > ago(30d)                     // adjust as needed
+| where customDimensions.eventId == "RT0055"     // Copilot Credit consumption event
+| project
+    timestamp,
+    message,
+    aadTenantId = customDimensions.aadTenantId,
+    actions = customDimensions.actions,
+    agentTaskId = customDimensions.agentTaskId,
+    environmentName = customDimensions.environmentName,
+    companyName = customDimensions.companyName,
+    copilotCredits = customDimensions.copilotCredits,
+    copilotStudioFeature = customDimensions.copilotStudioFeature,
+    featureName = customDimensions.featureName,
+    extensionName = customDimensions.extensionName,
+    extensionVersion = customDimensions.extensionVersion
+| order by timestamp desc

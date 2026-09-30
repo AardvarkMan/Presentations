@@ -1,0 +1,8 @@
+// Incoming Web Service Requests - endpoint information
+traces
+| where timestamp > ago(1d) // change as needed
+| where customDimensions has "RT0008"
+| where customDimensions.eventId == "RT0008"
+| where customDimensions.category == 'ODataV4'
+| project timestamp
+, endpoint = customDimensions.endpoint // URI
